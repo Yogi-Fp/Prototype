@@ -4,17 +4,7 @@ import "./App.css";
 import Tambah from './Tambah';
 import Edit from './Edit';
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tambah" element={<Tambah />} />
-        <Route path="/edit/:id" element={<Edit />} />
-      </Routes>
-    </Router>
-  );
-}
+
 
 // Replace ROSTER constant with INITIAL_ROSTER and add ROLE_OPTIONS
 const INITIAL_ROSTER = [
@@ -40,6 +30,16 @@ const ATTENDANCE_STATUS = {
 const ADMIN_PASSWORD = "admin123"; // Make sure this matches what you want to use
 
 export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tambah" element={<Tambah />} />
+        <Route path="/edit/:id" element={<Edit />} />
+      </Routes>
+    </Router>
+  );
+}
   const todayStr = new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(todayStr);
   const [role, setRole] = useState("Siswa");
@@ -756,4 +756,3 @@ const SignatureInput = forwardRef(function SignatureInput({ initialDataUrl = nul
     </div>
   );
 });
-
