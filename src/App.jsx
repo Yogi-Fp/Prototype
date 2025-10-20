@@ -507,7 +507,7 @@ export default function App() {
       {isAdmin && (
         <div style={{ marginBottom: "1rem" }} className="button-group">
           <button 
-            onClick={() => navigate = "/tambah"}
+            onClick={() => navigate ("/tambah")}
             style={{ background: "green" }}
           >
             Tambah Orang Baru
@@ -634,7 +634,7 @@ function AttendanceTable({
                     </button>
                   )}
                   <button 
-                    onClick={() => navigate = `/edit/${encodeURIComponent(row.name)}`}
+                    onClick={() => navigate (`/edit/${encodeURIComponent(row.name)}`)}
                     style={{ background: "#0ea5e9" }}
                     className=""
                   >
