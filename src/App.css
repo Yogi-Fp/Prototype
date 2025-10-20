@@ -703,3 +703,42 @@ button, .admin-button {
   }
 }
 
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+    width: 100%;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 1rem;
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 0.5rem 1rem;
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border: none;
+    position: relative;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #64748b;
+    width: 50%;
+    flex-shrink: 0;
+  }
+
+  table button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
