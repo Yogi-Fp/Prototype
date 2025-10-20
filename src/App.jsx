@@ -1,7 +1,20 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { jsPDF } from "jspdf";
 import "./App.css";
+import Tambah from './Tambah';
+import Edit from './Edit';
 
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tambah" element={<Tambah />} />
+        <Route path="/edit/:id" element={<Edit />} />
+      </Routes>
+    </Router>
+  );
+}
 
 // Replace ROSTER constant with INITIAL_ROSTER and add ROLE_OPTIONS
 const INITIAL_ROSTER = [
