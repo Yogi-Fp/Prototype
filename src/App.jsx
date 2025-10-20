@@ -746,3 +746,15 @@ const SignatureInput = forwardRef(function SignatureInput({ initialDataUrl = nul
     </div>
   );
 });
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tambah" element={<Tambah />} />
+        <Route path="/edit/:id" element={<Edit />} />
+      </Routes>
+    </Router>
+  );
+}
