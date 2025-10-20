@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { jsPDF } from "jspdf";
 import "./App.css";
+import { useNavigate } from "react-router-dom";
+
 
 // Replace ROSTER constant with INITIAL_ROSTER and add ROLE_OPTIONS
 const INITIAL_ROSTER = [
