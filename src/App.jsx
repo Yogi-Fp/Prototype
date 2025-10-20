@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { jsPDF } from "jspdf";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import Tambah from './Tambah';
 import Edit from './Edit';
-
 
 
 // Replace ROSTER constant with INITIAL_ROSTER and add ROLE_OPTIONS
@@ -508,7 +508,7 @@ export default function App() {
       {isAdmin && (
         <div style={{ marginBottom: "1rem" }} className="button-group">
           <button 
-            onClick={() => window.location.href = "/tambah"}
+            onClick={() => window.location.href = "/Tambah"}
             style={{ background: "green" }}
           >
             Tambah Orang Baru
@@ -635,7 +635,7 @@ function AttendanceTable({
                     </button>
                   )}
                   <button 
-                    onClick={() => window.location.href = `/edit/${encodeURIComponent(row.name)}`}
+                    onClick={() => window.location.href = `/Edit/${encodeURIComponent(row.name)}`}
                     style={{ background: "#0ea5e9" }}
                     className=""
                   >
@@ -746,15 +746,3 @@ const SignatureInput = forwardRef(function SignatureInput({ initialDataUrl = nul
     </div>
   );
 });
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tambah" element={<Tambah />} />
-        <Route path="/edit/:id" element={<Edit />} />
-      </Routes>
-    </Router>
-  );
-}
