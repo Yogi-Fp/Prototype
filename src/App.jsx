@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from "react";
 import { jsPDF } from "jspdf";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import Tambah from './Tambah';
-import Edit from './Edit';
-
 
 // Replace ROSTER constant with INITIAL_ROSTER and add ROLE_OPTIONS
 const INITIAL_ROSTER = [
@@ -30,6 +26,7 @@ const ATTENDANCE_STATUS = {
 const ADMIN_PASSWORD = "admin123"; // Make sure this matches what you want to use
 
 export default function App() {
+  const navigate = useNavigate()
   const todayStr = new Date().toISOString().slice(0, 10);
   const [date, setDate] = useState(todayStr);
   const [role, setRole] = useState("Siswa");
@@ -508,7 +505,7 @@ export default function App() {
       {isAdmin && (
         <div style={{ marginBottom: "1rem" }} className="button-group">
           <button 
-            onClick={() => window.location.href = "/Tambah"}
+            onClick={() => navigate = "/tambah"}
             style={{ background: "green" }}
           >
             Tambah Orang Baru
@@ -635,7 +632,7 @@ function AttendanceTable({
                     </button>
                   )}
                   <button 
-                    onClick={() => window.location.href = `/Edit/${encodeURIComponent(row.name)}`}
+                    onClick={() => navigate = `/edit/${encodeURIComponent(row.name)}`}
                     style={{ background: "#0ea5e9" }}
                     className=""
                   >
