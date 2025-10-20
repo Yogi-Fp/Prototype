@@ -45,13 +45,6 @@ export default function App() {
   const [isAdmin, setIsAdmin] = useState(() => {
     return localStorage.getItem("attendance_is_admin") === "1";
   });
-  const [approvedForSign, setApprovedForSign] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem('approved_for_sign')) || {};
-    } catch {
-      return {};
-    }
-  });
   const [rosterList, setRosterList] = useState(() => {
     try {
       const saved = localStorage.getItem("roster_data");
@@ -69,9 +62,6 @@ export default function App() {
   }, [isAdmin]);
   // Save approved signers to localStorage
   useEffect(() => {
-    localStorage.setItem('approved_for_sign', JSON.stringify(approvedForSign));
-  }, [approvedForSign]);
-  useEffect(() => {
     localStorage.setItem("roster_data", JSON.stringify(rosterList));
   }, [rosterList]);
 
@@ -82,8 +72,10 @@ export default function App() {
 
   // Helper to check if user is approved for signing
   const canSign = (name, date) => {
-    return approvedForSign[`${date}-${name}`] === true;
-  };
+  const entry = findEntry(name, date);
+  return entry && entry.status === ATTENDANCE_STATUS.PRESENT;
+};
+
 
   // Admin function to approve signing
   const approveForSigning = (name, date) => {
@@ -470,6 +462,7 @@ export default function App() {
             attendanceStatus={ATTENDANCE_STATUS}
             onEditPerson={handleEditPerson}
             onDeletePerson={handleDeletePerson}
+            navigate={navigate}
           />
         </>
       )}
@@ -530,7 +523,8 @@ function AttendanceTable({
   onSetStatus,
   attendanceStatus,
   onEditPerson,
-  onDeletePerson
+  onDeletePerson,
+  navigate
 }) {
   // Sort roster by role priority
   const sortedRoster = [...roster].sort((a, b) => {
@@ -579,20 +573,9 @@ function AttendanceTable({
                 <select
                   value={row.status || attendanceStatus.PENDING}
                   onChange={(e) => {
-                    const newStatus = e.target.value;
-                    if (newStatus !== attendanceStatus.PRESENT) {
-                      onUpdate(row.name, row.tanggal, { 
-                        status: newStatus, 
-                        signature: null,
-                        role: row.role // preserve existing role
-                      });
-                    } else {
-                      onUpdate(row.name, row.tanggal, { 
-                        status: newStatus,
-                        role: row.role // preserve existing role
-                      });
-                    }
-                  }}
+                  const newStatus = e.target.value;
+                  onSetStatus(row.name, row.tanggal, newStatus);
+                }}
                 >
                   {Object.values(attendanceStatus).map(status => (
                     <option key={status} value={status}>{status}</option>
@@ -625,14 +608,6 @@ function AttendanceTable({
             {isAdmin && (
               <td>
                 <div style={{ display: "flex", gap: 8 }}>
-                  {row.status === attendanceStatus.PRESENT && !canSign(row.name, row.tanggal) && (
-                    <button 
-                      onClick={() => onApproveSign(row.name, row.tanggal)} 
-                      style={{ background: "green" }}
-                    >
-                      Izinkan TTD
-                    </button>
-                  )}
                   <button 
                     onClick={() => navigate (`/edit/${encodeURIComponent(row.name)}`)}
                     style={{ background: "#0ea5e9" }}
@@ -695,13 +670,19 @@ const SignatureInput = forwardRef(function SignatureInput({ initialDataUrl = nul
   }));
 
   const getPos = (e) => {
-    const rect = canvasRef.current.getBoundingClientRect();
-    const client = e.touches ? e.touches[0] : e;
-    return { 
-      x: client.clientX - rect.left, 
-      y: client.clientY - rect.top 
-    };
+  const canvas = canvasRef.current;
+  const rect = canvas.getBoundingClientRect();
+  const client = e.touches ? e.touches[0] : e;
+
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+
+  return {
+    x: (client.clientX - rect.left) * scaleX,
+    y: (client.clientY - rect.top) * scaleY
   };
+};
+
 
   const start = (e) => {
     setIsDrawing(true);
@@ -745,3 +726,4 @@ const SignatureInput = forwardRef(function SignatureInput({ initialDataUrl = nul
     </div>
   );
 });
+

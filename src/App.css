@@ -205,7 +205,7 @@ table tr:hover td {
   touch-action: none;
   position: relative;
   z-index: 2;
-  padding: 25px;
+  padding: 50px;
 }
 
 /* Add spacing between buttons */

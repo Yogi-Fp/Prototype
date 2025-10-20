@@ -7,7 +7,9 @@ const ROLE_OPTIONS = ["Pembina", "Pelatih", "Ketua", "Wakil", "Sekretaris", "Sis
 export default function Edit() {
   const { name } = useParams();
   const navigate = useNavigate();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(
+  localStorage.getItem("isAdmin") === "true"
+);
   const [newName, setNewName] = useState("");
   const [role, setRole] = useState("Siswa");
   const [roster, setRoster] = useState([]);
@@ -67,7 +69,7 @@ export default function Edit() {
 
   return (
     <div className="form-page">
-      <h2>Edit Data: {name}</h2>
+      <h2>Edit Data</h2>
       <form onSubmit={handleSubmit} className="form-container">
         <label>Nama Baru</label>
         <input

@@ -56,7 +56,7 @@ export default function Tambah() {
 
   return (
     <div className="form-page">
-      <h2>Tambah Orang Baru</h2>
+      <h2>Tambah Data</h2>
       <form onSubmit={handleSubmit} className="form-container">
         <label>Nama</label>
         <input
