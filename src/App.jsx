@@ -353,22 +353,28 @@ export default function App() {
     if (!role || !ROLE_OPTIONS.includes(role)) return;
 
     // Update roster and all related entries
-    setRosterList(prev => prev.map(p => 
-      p.name === oldName ? { name, role } : p
-    ));
-    
-    // Update all entries for this person
-    setEntries(prev => prev.map(e => 
-      e.name === oldName ? { ...e, name, role } : e
-    ));
-  }
+    setRosterList(prev => {
+    const newRoster = prev.map(p => p.name === oldName ? { name, role } : p);
+    localStorage.setItem("roster_data", JSON.stringify(newRoster));
+    return newRoster;
+  });
+
+  // Update semua entri terkait
+  setEntries(prev => prev.map(e => e.name === oldName ? { ...e, name, role } : e));
+}
 
   function handleDeletePerson(name) {
-    if (!isAdmin) return;
-    if (!confirm(`Hapus ${name} dari daftar?`)) return;
-    setRosterList(prev => prev.filter(p => p.name !== name));
-    setEntries(prev => prev.filter(e => e.name !== name));
-  }
+  if (!isAdmin) return;
+  if (!confirm(`Hapus ${name} dari daftar?`)) return;
+
+  setRosterList(prev => {
+    const newRoster = prev.filter(p => p.name !== name);
+    localStorage.setItem("roster_data", JSON.stringify(newRoster));
+    return newRoster;
+  });
+
+  setEntries(prev => prev.filter(e => e.name !== name));
+}
 
   return (
     <div className="container">
@@ -476,7 +482,7 @@ export default function App() {
                 {isAdmin && <button onClick={() => {
                   if (!confirm(`Hapus semua entri pada ${tgl}?`)) return;
                   setEntries(prev => prev.filter(e => e.tanggal !== tgl));
-                }} style={{ background: "#ef4444" }}>Hapus Tanggal</button>}
+                }} style={{ background: "#ef4444" }} className="admin-button">Hapus Tanggal</button>}
               </div>
               <AttendanceTable
                 date={tgl}
@@ -628,6 +634,7 @@ function AttendanceTable({
                   <button 
                     onClick={() => window.location.href = `/edit/${encodeURIComponent(row.name)}`}
                     style={{ background: "#0ea5e9" }}
+                    className=""
                   >
                     Edit Data
                   </button>
