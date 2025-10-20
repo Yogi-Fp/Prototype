@@ -42,16 +42,6 @@ export default function App() {
       return [];
     }
   });
-   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tambah" element={<Tambah />} />
-        <Route path="/edit/:id" element={<Edit />} />
-      </Routes>
-    </Router>
-  );
-}
   const [view, setView] = useState("today");
   const [isAdmin, setIsAdmin] = useState(() => {
     return localStorage.getItem("attendance_is_admin") === "1";
