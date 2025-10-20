@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Color System */
+  --primary: #4f46e5;
+  --secondary: #818cf8;
+  --success: #10b981;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+
+  /* Typography */
+  --font-family: 'Poppins', system-ui, sans-serif;
+  --line-height: 1.5;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Center page and container */
+body {
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  color: var(--text);
+  background-color: var(--background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 1.25rem;
+}
+
+/* basic elements */
+a { color: var(--primary); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--secondary); }
+
+h1,h2,h3,h4,h5,h6 { font-weight: 600; line-height: 1.2; color: var(--text); }
+
+button {
+  font-family: var(--font-family);
+  border: none;
+  background: var(--primary);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  background: var(--secondary);
+}
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+input, select { font-family: var(--font-family); color: var(--text); }
+
+/* Container centered and responsive */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Navbar with spacing between buttons */
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem;
+  flex-wrap: wrap;
+}
+.navbar button {
+  min-width: 140px;
+  padding: 0.7rem 1.25rem;
+}
+
+/* Form layout: desktop 3 columns, tablet 2, mobile 1 */
+.form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.form div { display: flex; flex-direction: column; }
+.form label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+input, select {
+  width: 100%;
+  padding: 0.9rem;
+  background: #f8fafc;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.98rem;
+}
+
+/* Signature centered with label above */
+.signature {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2.25rem 0;
+}
+.signature-label {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+}
+.signature canvas {
+  width: 400px;
+  height: 200px;
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: all 0.18s ease;
+}
+.signature canvas:hover { border-color: var(--primary); background: #fff; }
+
+/* Buttons group with explicit spacing */
+.button-group {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem; /* jarak tiap tombol */
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.button-group .pdf-btn,
+.button-group .clear-btn {
+  min-width: 140px;
+}
+
+/* Responsive breakpoints */
+
+/* Large screens (desktop / laptop) */
+@media (min-width: 1200px) {
+  .container { padding: 3rem; max-width: 1200px; }
+  .form { gap: 2rem; grid-template-columns: repeat(3, 1fr); }
+  .button-group { gap: 2rem; }
+}
+
+/* Medium screens (tablet / small laptop) */
+@media (max-width: 1199px) and (min-width: 769px) {
+  .form { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .signature canvas { width: 360px; height: 180px; }
+  .container { padding: 2rem; }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 768px) {
+  html { font-size: 14px; }
+  .container {
+    padding: 1rem;
+    border-radius: 12px;
+    max-width: 100%;
+  }
+  .form { grid-template-columns: 1fr; gap: 1rem; }
+  .signature canvas { width: 100%; max-width: none; height: 180px; }
+  .navbar button { width: 100%; min-width: 0; }
+  .button-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .button-group .pdf-btn,
+  .button-group .clear-btn {
+    width: 100%;
+  }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --surface: #111827;
+    --text: #e6eef8;
+    --border: #273449;
+  }
+  body { background-color: var(--background); }
+  .container { background: var(--surface); box-shadow: none; }
+  input, select { background: #0b1220; border-color: var(--border); color: var(--text); }
+  .signature canvas { background: #07101a; }
+}

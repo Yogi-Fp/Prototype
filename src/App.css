@@ -1,0 +1,614 @@
+/* NOTE: Font import removed from this file (use index.css) */
+
+:root {
+  --primary: #4f46e5;
+  --secondary: #818cf8;
+  --success: #10b981;
+  --background: #f8fafc;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --border: #e2e8f0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Centered container + responsive adjustments */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 4rem); /* vertically center on larger screens */
+  position: relative; /* pastikan relatif sehingga z-index internal bekerja */
+  z-index: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Add or update navbar styles */
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.navbar button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  min-width: 100px;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto; /* pastikan event pointer diteruskan */
+}
+
+.navbar button:hover {
+  opacity: 0.9;
+}
+
+.navbar button.active {
+  background: var(--secondary);
+}
+
+/* Form: three columns on desktop, adapt down to 1 column on mobile */
+.form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+  margin-bottom: 2rem;
+}
+
+/* make inputs full width inside columns */
+.form div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add label styling */
+.form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+input, select {
+  width: 100%;
+  padding: 1rem;
+  background: #f8fafc;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  color: var(--text); /* Add this to make text visible */
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 2rem;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+table th {
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+}
+
+table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+/* Ensure status text (both select and plain span) is fully visible and wraps */
+table td select,
+table td .status-text,
+table td span[class^="status-"] {
+  white-space: normal;        /* allow wrapping of long status text */
+  word-break: break-word;     /* break long words/URLs if needed */
+  overflow-wrap: anywhere;    /* better wrap behavior */
+  width: 100%;                /* use full cell width so value isn't clipped */
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.3rem;     /* match table cell spacing */
+  background: transparent;    /* keep table styling consistent */
+  border: none;               /* remove extra borders inside cells */
+  color: inherit;
+  font: inherit;
+}
+
+/* make sure select dropdown still looks actionable inside table */
+table td select {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+table tr:hover td {
+  background: #f1f5f9;
+}
+
+.signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.signature-label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.signature canvas {
+  background: white;
+  touch-action: none;
+  position: relative;
+  z-index: 2;
+  padding: 25px;
+}
+
+/* Add spacing between buttons */
+.signature canvas:hover {
+  border-color: var(--primary);
+  background: white;
+}
+
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto; /* pastikan event pointer diteruskan */
+}
+
+.pdf-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.75rem; /* space between action buttons */
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.clear-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  background: var(--border);
+  color: var(--text);
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto; /* pastikan event pointer diteruskan */
+}
+
+.clear-btn:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+}
+
+/* Add or update button group styles */
+.button-group {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.button-group button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  min-width: 120px;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto; /* pastikan event pointer diteruskan */
+}
+
+/* Add or update table button styles */
+table button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 2;
+  pointer-events: auto; /* pastikan event pointer diteruskan */
+}
+
+table button:hover {
+  opacity: 0.9;
+}
+
+/* Admin button styles */
+.admin-button {
+  position: relative;
+  z-index: 100;
+  cursor: pointer !important;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  color: white;
+}
+
+.admin-button:hover {
+  opacity: 0.9;
+}
+
+/* Responsive breakpoints */
+
+/* Laptop / desktop wide screens */
+@media (min-width: 1200px) {
+  .container { max-width: 1200px; padding: 3rem; }
+  .form { gap: 2rem; }
+  .button-container { gap: 2rem; }
+}
+
+/* Tablet: two columns */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .form { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .container { padding: 2rem; min-height: calc(100vh - 3rem); }
+}
+
+/* Mobile: single column, stacked buttons full-width */
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem;
+    padding: 1.25rem;
+    border-radius: 12px;
+    min-height: auto;
+  }
+
+  .form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .navbar {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar button,
+  .pdf-btn,
+  .clear-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .signature canvas {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Fix for unclickable buttons: ensure container/layout tidak overlay tombol,
+   aktifkan pointer-events pada elemen interaktif dan beri z-index agar tombol di atas */
+.container {
+  position: relative; /* pastikan relatif sehingga z-index internal bekerja */
+  z-index: 0;
+}
+
+/* Make interactive elements explicitly clickable and on top */
+.navbar,
+.button-group,
+.button-container,
+.table-actions,
+.signature,
+.admin-button,
+.navbar button,
+.button-group button,
+table button {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto; /* pastikan event pointer diteruskan */
+}
+
+/* Ensure canvas tidak menutup tombol (tetap menerima event untuk gambar tapi tidak overlay) */
+.signature canvas {
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* If there was any accidental full-page overlay, disable its pointer-events by default */
+.fullscreen-overlay,
+.invisible-overlay {
+  display: none;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* small UX tweak: make sure buttons show cursor */
+button, .admin-button {
+  cursor: pointer;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.button-group button {
+  padding: 0.875rem 1.5rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.button-group button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(79, 70, 229, 0.3);
+}
+
+.button-group button[style*="background: #ef4444"] {
+  background: #ef4444 !important; /* tombol hapus */
+}
+
+.button-group button[style*="background: green"] {
+  background: #10b981 !important; /* tombol tambah */
+}
+
+/* History section styling */
+.history-section {
+  width: 100%;
+  background: var(--surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.history-section h2 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+/* Status badge colors */
+.status-hadir {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.status-izin {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.status-sakit {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.status-alfa {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.center-dash {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #94a3b8;
+}
+
+@media (max-width: 768px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
+
+  table th, table td {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+  }
+
+  .button-group button {
+    width: 100%;
+  }
+}
+
+
+/* ==== Tambahan untuk halaman Tambah & Edit ==== */
+
+.form-page {
+  max-width: 500px;
+  margin: 60px auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.form-page h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-container label {
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-container input,
+.form-container select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.form-buttons button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.save-btn {
+  background-color: #22c55e;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #16a34a;
+}
+
+.form-buttons button[type="button"] {
+  background-color: #ef4444;
+  color: white;
+}
+
+.form-buttons button[type="button"]:hover {
+  background-color: #dc2626;
+}
+
+@media (max-width: 480px) {
+  .form-page {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+  }
+}
